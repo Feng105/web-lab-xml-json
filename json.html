@@ -1,23 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>JSON Lab - User Profiles</title>
-<style>
-  body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #f5f5f5; }
-  h1 { color: #333; border-bottom: 2px solid #9b59b6; padding-bottom: 10px; }
-  .user-card { background: #fff; border-radius: 8px; padding: 16px 20px; margin: 12px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-  .user-card h3 { margin: 0 0 6px; color: #9b59b6; }
-  .user-card .email { color: #666; }
-  .detail-row { margin: 4px 0; color: #444; }
-  .section-title { font-weight: bold; margin-top: 10px; color: #333; }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-left: 6px; }
-  .sub-yes { background: #d4edda; color: #155724; }
-  .sub-no { background: #f8d7da; color: #721c24; }
-</style>
 </head>
 <body>
-<h1>User Profiles (from JSON)</h1>
+
+<h1>User Profiles</h1>
 <div id="users"></div>
 
 <script>
@@ -27,25 +16,17 @@ fetch('userProfiles.json')
     return response.json();
   })
   .then(users => {
-    const container = document.getElementById('users');
-    let html = '';
+    let s = '';
     users.forEach(u => {
-      const subClass = u.preferences.subscription ? 'sub-yes' : 'sub-no';
-      const subText = u.preferences.subscription ? 'Subscribed' : 'Not Subscribed';
-      html += '<div class="user-card">' +
-                '<h3>' + u.firstName + ' ' + u.lastName + '</h3>' +
-                '<div class="email">' + u.email + '</div>' +
-                '<div class="detail-row"><b>Date of Birth:</b> ' + u.dateOfBirth + '</div>' +
-                '<div class="section-title">Address</div>' +
-                '<div class="detail-row">' + u.address.street + ', ' + u.address.city + ', ' + u.address.state + ' ' + u.address.zipCode + '</div>' +
-                '<div class="section-title">Preferences</div>' +
-                '<div class="detail-row">Theme: ' + u.preferences.theme + '</div>' +
-                '<div class="detail-row">Language: ' + u.preferences.language + '</div>' +
-                '<div class="detail-row">Notifications: ' + (u.preferences.notifications ? 'On' : 'Off') +
-                  '<span class="badge ' + subClass + '">' + subText + '</span></div>' +
-              '</div>';
+      s += '<b>' + u.firstName + ' ' + u.lastName + '</b><br>';
+      s += 'Email: ' + u.email + '<br>';
+      s += 'Date of Birth: ' + u.dateOfBirth + '<br>';
+      s += 'Address: ' + u.address.street + ', ' + u.address.city + ', ' + u.address.state + ' ' + u.address.zipCode + '<br>';
+      s += 'Preferences: theme=' + u.preferences.theme + ', language=' + u.preferences.language +
+           ', notifications=' + u.preferences.notifications + ', subscription=' + u.preferences.subscription + '<br>';
+      s += '<br>';
     });
-    container.innerHTML = html;
+    document.getElementById('users').innerHTML = s;
   })
   .catch(err => console.error('Fetch error:', err.message));
 </script>

@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>XML Lab - Book Catalogue</title>
-<style>
-  body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #f5f5f5; }
-  h1 { color: #333; border-bottom: 2px solid #4a90d9; padding-bottom: 10px; }
-  .book-card { background: #fff; border-radius: 8px; padding: 16px 20px; margin: 12px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-  .book-card h3 { margin: 0 0 8px; color: #4a90d9; }
-  .book-card .author { color: #666; font-style: italic; }
-  .book-card .price { color: #27ae60; font-weight: bold; font-size: 1.1em; }
-  .id-badge { display: inline-block; background: #eee; border-radius: 4px; padding: 2px 8px; font-size: 0.85em; color: #888; margin-left: 8px; }
-</style>
 </head>
 <body>
-<h1>Book Catalogue (from XML)</h1>
+
+<h1>Book Catalogue</h1>
 <div id="books"></div>
 
 <script>
@@ -27,21 +19,15 @@ fetch('book.xml')
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
     const books = xmlDoc.getElementsByTagName('book');
-    const container = document.getElementById('books');
-    let html = '';
+    let s = '';
     for (let i = 0; i < books.length; i++) {
-      const b = books[i];
-      const id = b.getAttribute('id');
-      const title = b.getElementsByTagName('title')[0].textContent;
-      const author = b.getElementsByTagName('author')[0].textContent;
-      const price = b.getElementsByTagName('price')[0].textContent;
-      html += '<div class="book-card">' +
-               '<h3>' + title + '<span class="id-badge">' + id + '</span></h3>' +
-               '<div class="author">by ' + author + '</div>' +
-               '<div class="price">$' + price + '</div>' +
-             '</div>';
+      const id = books[i].getAttribute('id');
+      const title = books[i].getElementsByTagName('title')[0].textContent;
+      const author = books[i].getElementsByTagName('author')[0].textContent;
+      const price = books[i].getElementsByTagName('price')[0].textContent;
+      s += '[' + id + '] ' + title + ' by ' + author + ' - $' + price + '<br>';
     }
-    container.innerHTML = html;
+    document.getElementById('books').innerHTML = s;
   })
   .catch(err => console.error('Fetch error:', err.message));
 </script>
