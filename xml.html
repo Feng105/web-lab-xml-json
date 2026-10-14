@@ -29,7 +29,10 @@ fetch('book.xml')
       const title = books[i].getElementsByTagName('title')[0].textContent;
       const author = books[i].getElementsByTagName('author')[0].textContent;
       const price = books[i].getElementsByTagName('price')[0].textContent;
-      s += '[' + id + '] ' + title + ' by ' + author + ' - $' + price + '<br>';
+      s += 'Book ID: ' + id + '<br>';
+      s += 'Title: ' + title + '<br>';
+      s += 'Author: ' + author + '<br>';
+      s += 'Price: $' + price + '<br><br>';
     }
     document.getElementById('books').innerHTML = s;
   })
