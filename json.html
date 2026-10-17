@@ -26,8 +26,10 @@ fetch('userProfiles.json')
       s += 'Email: ' + u.email + '<br>';
       s += 'Date of Birth: ' + u.dateOfBirth + '<br>';
       s += 'Address: ' + u.address.street + ', ' + u.address.city + ', ' + u.address.state + ' ' + u.address.zipCode + '<br>';
-      s += 'Preferences: theme=' + u.preferences.theme + ', language=' + u.preferences.language +
-           ', notifications=' + u.preferences.notifications + ', subscription=' + u.preferences.subscription + '<br>';
+      s += 'Theme: ' + u.preferences.theme + '<br>';
+      s += 'Language: ' + u.preferences.language + '<br>';
+      s += 'Notifications: ' + u.preferences.notifications + '<br>';
+      s += 'Subscription: ' + u.preferences.subscription + '<br>';
       s += '<br>';
     });
     document.getElementById('users').innerHTML = s;
